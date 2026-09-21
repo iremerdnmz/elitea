@@ -2,10 +2,12 @@ import { test, expect } from '@playwright/test';
 
 test('EPAM Client Work is reachable from Services', async ({ page }) => {
   await page.goto('https://www.epam.com/', { waitUntil: 'domcontentloaded' });
+  await expect(page).toHaveURL('https://www.epam.com/');
   await expect(page).toHaveTitle('EPAM | Software Engineering & Product Development Services');
-  await expect(page.getByRole('link', { name: 'Services', exact: true })).toBeVisible();
+  const servicesLink = page.getByRole('link', { name: 'Services', exact: true }).nth(1);
+  await expect(servicesLink).toBeVisible();
 
-  await page.getByRole('link', { name: 'Services', exact: true }).click();
+  await servicesLink.click();
   await expect(page).toHaveURL('https://www.epam.com/services');
 
   await page.getByRole('link', { name: 'Explore Our Client Work', exact: true }).click();

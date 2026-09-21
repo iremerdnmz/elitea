@@ -1,0 +1,3 @@
+import { expect, test } from '@playwright/test';
+
+test.describe('EPAM client work navigation', () => {
